@@ -1,0 +1,22 @@
+.stories {
+  display: flex;
+  width: 100%;
+  margin: 10px 0;
+  border-bottom: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.stories > .stories-top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.stories > .stories-top > h4 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.stories > .stories-top > p {
+  color: rgba(8, 8, 8, 1);
+}

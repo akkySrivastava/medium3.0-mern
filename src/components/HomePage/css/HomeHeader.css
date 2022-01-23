@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  background-color: rgb(196 226 255);
+  padding: 20px 0px;
+  border-bottom: 1px solid #000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-options-button {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-option {
+  margin: 0px 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.header-right-button {
+  margin: 0px 10px;
+}
+
+.header-right-started > span > button {
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 33px;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  .header-right-options-button {
+    display: none;
+  }
+}

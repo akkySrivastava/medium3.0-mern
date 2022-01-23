@@ -1,0 +1,101 @@
+.landHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 0px;
+  box-shadow: 2px 8px 8px rgba(233, 232, 232, 0.5);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-options {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-option {
+  margin: 0px 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.header-right-button {
+  margin: 0px 10px;
+}
+
+.header-right-upgrade > span > button {
+  outline: none;
+  border: none;
+  padding: 5px 25px;
+  background-color: #fff;
+  color: rgba(8, 8, 8, 1);
+  border-radius: 33px;
+  font-size: 15px;
+  border: 1px solid rgba(8, 8, 8, 1);
+  margin: 0px 10px;
+}
+
+.pop-title {
+  display: flex;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.pop-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pop-info-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-info-name > span {
+  margin-left: 10px;
+}
+
+.pop-content {
+  display: flex;
+}
+
+.pop-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pop-content-container > span {
+  color: rgb(80, 80, 80);
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.pop-content-container > span:hover {
+  color: rgb(207, 207, 207);
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+  .header-right-upgrade {
+    display: none;
+  }
+}

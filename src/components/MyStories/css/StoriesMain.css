@@ -1,0 +1,55 @@
+.story-main {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0px;
+}
+
+.story-main-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* width: 90%; */
+  margin: 0 20px;
+  justify-content: center;
+}
+
+.story-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.story-main-header > h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.header-buttons {
+  display: flex;
+}
+
+.header-buttons > button {
+  display: flex;
+  padding: 5px 15px;
+  margin: 0 10px;
+  border-radius: 33px;
+  outline: none;
+  border: 1px solid rgba(47, 47, 47, 0.623);
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.header-buttons > button:last-child {
+  border: 1px solid green;
+  color: green;
+  cursor: pointer;
+}
+
+.stories-content {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
