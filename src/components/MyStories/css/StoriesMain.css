@@ -42,7 +42,15 @@
   background-color: #fff;
 }
 
-.header-buttons > button:last-child {
+.header-buttons > a > button:last-child {
+  display: flex;
+  padding: 5px 15px;
+  margin: 0 10px;
+  border-radius: 33px;
+  outline: none;
+  border: 1px solid rgba(47, 47, 47, 0.623);
+  cursor: pointer;
+  background-color: #fff;
   border: 1px solid green;
   color: green;
   cursor: pointer;

@@ -28,7 +28,9 @@ const LandHeader = () => {
     return (
       <div className="pop-content">
         <div className="pop-content-container">
-          <span>Write a story</span>
+          <span>
+            <Link to="/new-story">Write a story</Link>
+          </span>
           <span>
             <Link to={"/me/stories"}>Stories</Link>
           </span>

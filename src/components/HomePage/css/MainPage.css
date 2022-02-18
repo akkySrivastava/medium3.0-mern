@@ -4,7 +4,7 @@
   justify-content: space-around;
   padding: 20px 0px;
   background-color: rgb(196 226 255);
-  min-height: 55vh;
+  min-height: auto;
 }
 
 .main-container {
@@ -25,6 +25,7 @@
   font-family: "Times New Roman", Times, serif;
   color: rgba(8, 8, 8, 1);
   font-weight: 500;
+  line-height: 5rem;
 }
 
 .main-content > h6 {

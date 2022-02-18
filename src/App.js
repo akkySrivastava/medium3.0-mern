@@ -5,12 +5,14 @@ import HomePage from "./components/HomePage";
 import LandHeader from "./components/LandingPage";
 import MyStories from "./components/MyStories";
 import Lists from "./components/Lists";
+import WriteStories from "./components/WriteStories/index";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/new-story" element={<WriteStories />} />
           <Route path="/me/lists" element={<Lists />} />
           <Route path="/me/stories" element={<MyStories />} />
           <Route path="/getting-started" element={<HomePage />} />

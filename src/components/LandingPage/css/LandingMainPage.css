@@ -57,7 +57,7 @@
   font-weight: 500;
 }
 
-.landing-write-story > button {
+.landing-write-story > a > button {
   padding: 10px 15px;
   margin: 0px 5px;
   min-width: fit-content;
