@@ -1,19 +1,27 @@
+import { Avatar } from "antd";
 import React from "react";
-import Avatar from "react-avatar";
+import { truncate } from "../../helpers/truncate";
+// import Avatar from "react-avatar";
 
-const WhoToFollow = () => {
+const WhoToFollow = ({ data }) => {
   return (
     <div className="follow-content">
       <Avatar
-        size="50"
-        round={true}
-        src="https://miro.medium.com/fit/c/48/48/1*tPfbBeQ23qMKUptWlw1FaQ.jpeg"
+        size={40}
+        // round={true}
+        src={data?.photoURL}
       />
       <div className="info">
-        <h3>Paul Greenberger</h3>
-        <span>New York Times</span>
+        <h3>{truncate(String(data?.displayName), 15)}</h3>
+        <span>@{String(data?.email).split("@")[0]}</span>
       </div>
-      <button>Follow</button>
+      <button
+        style={{
+          marginLeft: "auto",
+        }}
+      >
+        Follow
+      </button>
     </div>
   );
 };

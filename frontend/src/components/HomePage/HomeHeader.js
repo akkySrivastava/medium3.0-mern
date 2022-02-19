@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthModal } from "../Modals/AuthModal";
 import "./css/HomeHeader.css";
 
-function HomeHeader() {
+function HomeHeader({ signInPopup }) {
   const [modal, setModal] = React.useState(false);
   return (
     <header>
@@ -41,7 +41,11 @@ function HomeHeader() {
                 </button>
               </span>
             </div>
-            <AuthModal open={modal} setOpen={setModal} />
+            <AuthModal
+              signInPopup={signInPopup}
+              open={modal}
+              setOpen={setModal}
+            />
           </div>
         </div>
       </div>

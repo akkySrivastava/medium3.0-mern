@@ -1,24 +1,28 @@
 import { Tooltip } from "antd";
 import React from "react";
 import "./css/LandingRecommendedPost.css";
+import moment from "moment";
+import { truncate } from "../../helpers/truncate";
+import reactHtmlParser from "react-html-parser";
 
-const LandingRecommendedPost = () => {
+const LandingRecommendedPost = ({ data }) => {
+  // console.log(data);
   return (
     <div className="landing-recommended-post">
       <div className="landing-recommended-post-container">
         <div className="landing-recommended-left">
           <div className="landing-top">
-            <img
-              src="https://miro.medium.com/fit/c/20/20/1*an7W8VpGD0t9aWY-qsa8Ew.png"
-              alt="logo"
-            />
-            <span>Jonathan Poletti</span>
+            <img src={data?.userDetails[0]?.photoURL} alt="logo" />
+            <span>{data?.userDetails[0]?.displayName}</span>
           </div>
           <div className="landing-content">
-            8 Lessons Most People Learn Too Late in Life
+            {reactHtmlParser(data?.title)}
+            {/* {truncate(reactHtmlParser(data?.title), 20)} */}
           </div>
           <div className="landing-footer">
-            <span>Jan 17 · 6 min read</span>
+            <span>
+              {moment(data?.created_at).format("MMM DD")} · 6 min read
+            </span>
             <div className="icons">
               <Tooltip title="Save">
                 <span>

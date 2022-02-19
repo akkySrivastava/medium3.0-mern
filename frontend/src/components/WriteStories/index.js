@@ -6,20 +6,52 @@ import "./css/index.css";
 import Editor from "react-medium-editor";
 import "medium-editor/dist/css/medium-editor.css";
 import "medium-editor/dist/css/themes/beagle.css";
+import { useSelector } from "react-redux";
+import { selectUserId } from "../../features/userIdSlice";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [title, setTitle] = React.useState("");
 
   const [desc, setDesc] = React.useState("");
 
-  console.log(title);
-  console.log(desc);
+  const { _id } = useSelector(selectUserId);
+  const navigate = useNavigate();
+
+  // console.log(title);
+  // console.log(desc);
+
+  const handleSubmitStories = async () => {
+    const body = {
+      title: title,
+      content: desc,
+      userId: _id,
+    };
+
+    const confHeader = {
+      "Content-Type": "application/json",
+    };
+    await axios
+      .post("http://localhost:80/api/stories", body, confHeader)
+      .then((res) => {
+        if (res.data.status) {
+          console.log(res.data.message);
+          navigate("/", {
+            replace: true,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data.message);
+      });
+  };
 
   return (
     <>
       <LandHeader />
       <div className="pub-button">
-        <button>Publish</button>
+        <button onClick={handleSubmitStories}>Publish</button>
       </div>
       <div
         style={{

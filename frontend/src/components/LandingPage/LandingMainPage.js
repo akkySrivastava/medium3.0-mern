@@ -1,11 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LandingRecommendedPost from "./LandingRecommendedPost";
 import "./css/LandingMainPage.css";
 import WhoToFollow from "./WhoToFollow";
 import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { selectUserId } from "../../features/userIdSlice";
+import axios from "axios";
+import { Skeleton } from "antd";
 
 const LandingMainPage = () => {
   const [tab, setTab] = useState(0);
+  // const { _id } = useSelector(selectUserId);
+  // console.log(_id);
+  const [stories, setStories] = useState();
+  const [users, setUsers] = useState();
+  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
+
+  useEffect(() => {
+    async function getStories() {
+      await axios
+        .get("http://localhost:80/api/stories")
+        .then((res) => {
+          // console.log(res.data.data);
+          setLoading(false);
+          setStories(res.data.data?.slice(0, 10)?.reverse());
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          setLoading(false);
+        });
+    }
+    getStories();
+  }, []);
+
+  useEffect(() => {
+    async function getUsers() {
+      await axios
+        .get("http://localhost:80/api/user")
+        .then((res) => {
+          if (res.data.status) {
+            setUsers(res.data.data);
+            setUserLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          setUserLoading(false);
+        });
+    }
+    getUsers();
+  }, []);
+
   return (
     <div className="landing-main">
       <div className="landing-main-container">
@@ -34,23 +80,48 @@ const LandingMainPage = () => {
             <>
               {/* <div className="follow"> */}
               {/* <h2>Who to follow</h2> */}
+              {users?.map((data) => (
+                <WhoToFollow key={data?._id} data={data} />
+              ))}
+
+              {/* <WhoToFollow />
               <WhoToFollow />
               <WhoToFollow />
               <WhoToFollow />
-              <WhoToFollow />
-              <WhoToFollow />
-              <WhoToFollow />
+              <WhoToFollow /> */}
               {/* </div> */}
             </>
           )}
           {tab === 1 && (
             <div className="landing-recommended-posts">
+              {[...Array(10)].map((_, index) => {
+                return (
+                  <>
+                    {loading && (
+                      <Skeleton.Button
+                        key={index}
+                        style={{
+                          margin: "10px 0",
+                        }}
+                        active={true}
+                        size={"lage"}
+                        shape={"default"}
+                        block={true}
+                      />
+                    )}
+                  </>
+                );
+              })}
+
+              {stories?.map((data) => (
+                <LandingRecommendedPost key={data?._id} data={data} />
+              ))}
+
+              {/* <LandingRecommendedPost />
               <LandingRecommendedPost />
               <LandingRecommendedPost />
               <LandingRecommendedPost />
-              <LandingRecommendedPost />
-              <LandingRecommendedPost />
-              <LandingRecommendedPost />
+              <LandingRecommendedPost /> */}
             </div>
           )}
         </div>
@@ -69,12 +140,25 @@ const LandingMainPage = () => {
           </div>
           <div className="follow">
             <h2>Who to follow</h2>
+            {[...Array(5)].map((_, idx) => {
+              return (
+                <>
+                  {userLoading && (
+                    <Skeleton key={idx} active avatar paragraph={{ rows: 1 }} />
+                  )}
+                </>
+              );
+            })}
+
+            {users?.map((data) => (
+              <WhoToFollow key={data?._id} data={data} />
+            ))}
+            {/* <WhoToFollow />
             <WhoToFollow />
             <WhoToFollow />
             <WhoToFollow />
             <WhoToFollow />
-            <WhoToFollow />
-            <WhoToFollow />
+            <WhoToFollow /> */}
           </div>
         </div>
       </div>

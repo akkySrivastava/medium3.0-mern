@@ -1,0 +1,36 @@
+{
+  "name": "medium-clone-3.0",
+  "version": "1.0.0",
+  "description": "Medium Clone 3.0 tutorial - created by codewithakky",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch backend --exec node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akkySrivastava/medium3.0-mern.git"
+  },
+  "keywords": [
+    "medium",
+    "clone",
+    "mern",
+    "mernstack"
+  ],
+  "author": "codewithakky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akkySrivastava/medium3.0-mern/issues"
+  },
+  "homepage": "https://github.com/akkySrivastava/medium3.0-mern#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.2",
+    "nodemon": "^2.0.15"
+  }
+}

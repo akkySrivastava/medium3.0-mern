@@ -1,23 +1,36 @@
-import { Popover } from "antd";
+import { Avatar, Image, Popover } from "antd";
 import React, { useState } from "react";
-import Avatar from "react-avatar";
-import { Link } from "react-router-dom";
+// import Avatar from "react-avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout, selectUser } from "../../features/userSlice";
+import { auth } from "../../firebase";
 import "./css/LandHeader.css";
 
 const LandHeader = () => {
   const [visible, setvisible] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  // console.log(user);
+
   const Title = () => {
     return (
       <div className="pop-title">
         <div className="pop-title-container">
-          <Avatar
+          {/* <Avatar
             size={40}
             round={true}
-            src="https://miro.medium.com/fit/c/40/40/1*kA_cgxXQCMSbJhgW8niY5w.png"
+            // src="https://miro.medium.com/fit/c/40/40/1*kA_cgxXQCMSbJhgW8niY5w.png"
+            src="https://lh3.googleusercontent.com/a/AATXAJzmT2D2pRjMyngzLDLGwBDSS0TrcjmcT7VRhJF3=s96-c"
+          /> */}
+          <Avatar
+            size={50}
+            src={<Image src={user?.providerData?.photoURL} />}
           />
           <div className="pop-info-name">
-            <span>Code With Akky</span>
-            <span>@codewithakky</span>
+            <span>{user?.providerData?.displayName}</span>
+            <span>@{String(user?.providerData?.email).split("@")[0]}</span>
           </div>
         </div>
       </div>
@@ -37,9 +50,36 @@ const LandHeader = () => {
           <span>
             <Link to={"/me/lists"}>Lists</Link>
           </span>
-          <span>Fork me on Github</span>
-          <span>Subscribe on Youtube</span>
-          <span>Sign out</span>
+          <span>
+            <a
+              href="https://github.com/akkySrivastava/medium3.0-mern"
+              target={"_blank"}
+              rel="noopener noreferrer"
+            >
+              Fork me on Github
+            </a>
+          </span>
+          <span>
+            <a
+              href="https://youtube.com/c/CodeWithAkky"
+              target={"_blank"}
+              rel="noopener noreferrer"
+            >
+              Subscribe on Youtube
+            </a>
+          </span>
+          <span
+            onClick={() => {
+              auth.signOut().then(() => {
+                dispatch(logout());
+                navigate("/getting-started", {
+                  replace: true,
+                });
+              });
+            }}
+          >
+            Sign out
+          </span>
         </div>
       </div>
     );
@@ -65,20 +105,22 @@ const LandHeader = () => {
             </div>
             <div className="header-right-option">
               <span>
-                <svg
-                  width="25"
-                  height="25"
-                  viewBox="0 0 25 25"
-                  fill="none"
-                  class="la"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M10 3a2 2 0 0 0-2 2v1H6a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4V8a2 2 0 0 0-2-2H9V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v12a.5.5 0 1 0 1 0V5a2 2 0 0 0-2-2h-9zM5 8a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v12.98l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V8z"
-                    fill="#757575"
-                  ></path>
-                </svg>
+                <Link to="/me/lists">
+                  <svg
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="none"
+                    class="la"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M10 3a2 2 0 0 0-2 2v1H6a2 2 0 0 0-2 2v14a.5.5 0 0 0 .8.4l5.7-4.4 5.7 4.4a.5.5 0 0 0 .8-.4V8a2 2 0 0 0-2-2H9V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v12a.5.5 0 1 0 1 0V5a2 2 0 0 0-2-2h-9zM5 8a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v12.98l-5.2-4a.5.5 0 0 0-.6 0l-5.2 4V8z"
+                      fill="#757575"
+                    ></path>
+                  </svg>
+                </Link>
               </span>
             </div>
             <div className="header-right-option">
@@ -115,6 +157,18 @@ const LandHeader = () => {
                       onVisibleChange={() => setvisible(!visible)}
                     >
                       <Avatar
+                        size={40}
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        src={
+                          <Image
+                            preview={false}
+                            src={user?.providerData?.photoURL}
+                          />
+                        }
+                      />
+                      {/* <Avatar
                         style={{
                           cursor: "pointer",
                         }}
@@ -122,7 +176,7 @@ const LandHeader = () => {
                         round={true}
                         facebook-id="invalidfacebookusername"
                         src="http://www.gravatar.com/avatar/a16a38cdfe8b2cbd38e8a56ab93238d3"
-                      />
+                      /> */}
                     </Popover>
                   </span>
                 </div>

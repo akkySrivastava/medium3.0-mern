@@ -1,18 +1,23 @@
 import { Tooltip } from "antd";
 import React from "react";
 import "./css/Stories.css";
+import reactHtmlParser from "react-html-parser";
+import moment from "moment";
 
-const Stories = () => {
+const Stories = ({ data }) => {
   return (
     <div className="stories">
       <div className="stories-top">
-        <h4>Quora Clone : How to build Full Stack Quora Clone</h4>
+        <h4>{reactHtmlParser(data?.title)}</h4>
         <p>
           Hello Coding Aliens, How are you doing guys? Welcome back to another
           blog. But this time something interesting and unique...
         </p>
         <div className="footer">
-          <span>Published on Feb 1,2021 · 3 min read</span>
+          <span>
+            Published on {moment(data?.created_at).format("MMM DD YYYY")} · 3
+            min read
+          </span>
           <Tooltip title="Share">
             <span>
               <svg width="25" height="25" class="eh">

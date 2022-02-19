@@ -4,7 +4,7 @@ import "./css/MainPage.css";
 
 // gt-super, Georgia, Cambria, "Times New Roman", Times, serif
 
-const MainPage = () => {
+const MainPage = ({ signInPopup }) => {
   const [modal, setModal] = React.useState(false);
 
   return (
@@ -22,7 +22,7 @@ const MainPage = () => {
         </div>
       </div>
       <div>
-        <AuthModal open={modal} setOpen={setModal} />
+        <AuthModal signInPopup={signInPopup} open={modal} setOpen={setModal} />
       </div>
     </div>
   );
