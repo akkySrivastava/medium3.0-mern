@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import Stories from "./Stories";
 import "./css/StoriesMain.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserId } from "../../features/userIdSlice";
 import axios from "axios";
 import { Skeleton } from "antd";
 
-const StoriesMain = () => {
-  const { _id } = useSelector(selectUserId);
+const StoriesMain = ({userDetails}) => {
   const [stories, setStories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (_id) {
+    if (userDetails?._id) {
       async function getStories() {
-        axios
-          .get(`http://localhost:80/api/stories/user/${_id}`)
+        setLoading(true)
+        await axios
+          .get(`http://localhost:80/api/stories/user/${userDetails?._id}`)
           .then((res) => {
             console.log(res.data);
             setStories(res.data.data.reverse());
@@ -29,7 +27,7 @@ const StoriesMain = () => {
 
       getStories();
     }
-  }, [_id]);
+  }, [userDetails]);
   return (
     <div className="story-main">
       <div className="story-main-container">
@@ -62,6 +60,9 @@ const StoriesMain = () => {
               </>
             );
           })}
+          {
+            stories?.length === 0 && `No stories found`
+          }
           {stories?.map((data) => (
             <Stories key={data?._id} data={data} />
           ))}

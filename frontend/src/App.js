@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LandingPage from "./components/LandingPage";
 import MyStories from "./components/MyStories";
+import OurStory from './components/OurStory'
+import Membership from './components/Membership'
+import Creators from './components/Creators'
 import Lists from "./components/Lists";
 import WriteStories from "./components/WriteStories/index";
 import PrivateRoute from "./helpers/PrivateRoute";
@@ -12,84 +15,86 @@ import { useDispatch } from "react-redux";
 import { login } from "./features/userSlice";
 import axios from "axios";
 import { userId } from "./features/userIdSlice";
+import ViewStory from './components/ViewStory'
 
 function App() {
   const dispatch = useDispatch();
   // const user = useSelector(selectUser);
-  const [userDetails, setUserDetails] = React.useState();
+  const [userDetails, setUserDetails] =  useState()
   useEffect(() => {
     auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
-        setUserDetails(authUser?.providerData[0]);
         console.log(authUser);
-
         dispatch(
           login({
             providerData: authUser.providerData[0],
           })
         );
+        async function getUser() {
+              await axios
+                .get(`http://localhost:80/api/user/${authUser?.email}`)
+                .then(async (res) => {
+                  console.log(res.data);
+                  if (res.data.status) {
+                    setUserDetails(res.data?.data)
+                    dispatch(
+                      userId(
+                        res.data.data._id,
+                      )
+                    );
+                  }
+                  if (!res.data.status) {
+                    const confHeader = {
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    };
+                    const body = {
+                      providerId: authUser?.providerId,
+                      uid: authUser?.uid,
+                      displayName: authUser?.displayName,
+                      email: authUser?.email,
+                      phoneNumber: authUser?.phoneNumber,
+                      photoURL: authUser?.photoURL,
+                    };
+                    await axios
+                      .post("http://localhost:80/api/user", body, confHeader)
+                      .then((res) => {
+                        console.log(res.data);
+                        setUserDetails(res.data?.data)
+                        dispatch(
+                          userId({
+                            _id: res.data.data._id,
+                          })
+                        );
+                      })
+                      .catch((err) => {
+                        console.log(err.response.data.message);
+                      });
+                  }
+                });
+        }
+
+        getUser();
       }
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    if (userDetails) {
-      async function getUser() {
-        await axios
-          .get(`http://localhost:80/api/user/${userDetails?.email}`)
-          .then(async (res) => {
-            console.log(res.data);
-            if (res.data.status) {
-              dispatch(
-                userId({
-                  _id: res.data.data._id,
-                })
-              );
-            }
-            if (!res.data.status) {
-              const confHeader = {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              };
-              const body = {
-                providerId: userDetails?.providerId,
-                uid: userDetails?.uid,
-                displayName: userDetails?.displayName,
-                email: userDetails?.email,
-                phoneNumber: userDetails?.phoneNumber,
-                photoURL: userDetails?.photoURL,
-              };
-              await axios
-                .post("http://localhost:80/api/user", body, confHeader)
-                .then((res) => {
-                  console.log(res.data);
-                  dispatch(
-                    userId({
-                      _id: res.data.data._id,
-                    })
-                  );
-                })
-                .catch((err) => {
-                  console.log(err.response.data.message);
-                });
-            }
-          });
-      }
-
-      getUser();
-    }
-  }, [userDetails]);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+        <Route path="/getting-started" element={<HomePage />} />
+        <Route path="/our-story" element={<OurStory />} />
+        <Route path="/membership" element={<Membership />} />
+        <Route path="/creators" element={<Creators />} />
+        <Route path="/story/:id" element={<ViewStory userDetails = {userDetails} />} />
           <Route
             path="/new-story"
             element={
               <PrivateRoute>
-                <WriteStories />
+                <WriteStories userDetails = {userDetails} />
               </PrivateRoute>
             }
           />
@@ -97,7 +102,7 @@ function App() {
             path="/me/lists"
             element={
               <PrivateRoute>
-                <Lists />
+                <Lists userDetails = {userDetails} />
               </PrivateRoute>
             }
           />
@@ -105,16 +110,16 @@ function App() {
             path="/me/stories"
             element={
               <PrivateRoute>
-                <MyStories />
+                <MyStories userDetails = {userDetails} />
               </PrivateRoute>
             }
           />
-          <Route path="/getting-started" element={<HomePage />} />
+          
           <Route
             path="/"
             element={
               <PrivateRoute>
-                <LandingPage />
+                <LandingPage userDetails = {userDetails} />
               </PrivateRoute>
             }
           />

@@ -3,15 +3,12 @@ import LandingRecommendedPost from "./LandingRecommendedPost";
 import "./css/LandingMainPage.css";
 import WhoToFollow from "./WhoToFollow";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectUserId } from "../../features/userIdSlice";
 import axios from "axios";
 import { Skeleton } from "antd";
 
-const LandingMainPage = () => {
+const LandingMainPage = ({userDetails}) => {
   const [tab, setTab] = useState(0);
-  // const { _id } = useSelector(selectUserId);
-  // console.log(_id);
+  console.log(userDetails);
   const [stories, setStories] = useState();
   const [users, setUsers] = useState();
   const [loading, setLoading] = useState(true);
@@ -24,7 +21,7 @@ const LandingMainPage = () => {
         .then((res) => {
           // console.log(res.data.data);
           setLoading(false);
-          setStories(res.data.data?.slice(0, 10)?.reverse());
+          setStories(res.data.data?.slice(0, 10));
         })
         .catch((err) => {
           console.log(err.response.data.message);
@@ -40,7 +37,8 @@ const LandingMainPage = () => {
         .get("http://localhost:80/api/user")
         .then((res) => {
           if (res.data.status) {
-            setUsers(res.data.data);
+            let _users = res.data?.data?.filter((data) => data?._id !== userDetails?._id)
+            setUsers(_users);
             setUserLoading(false);
           }
         })
@@ -114,7 +112,7 @@ const LandingMainPage = () => {
               })}
 
               {stories?.map((data) => (
-                <LandingRecommendedPost key={data?._id} data={data} />
+                <LandingRecommendedPost userDetails = {userDetails} key={data?._id} data={data} />
               ))}
 
               {/* <LandingRecommendedPost />
@@ -140,6 +138,9 @@ const LandingMainPage = () => {
           </div>
           <div className="follow">
             <h2>Who to follow</h2>
+            {users?.map((data) => (
+              <WhoToFollow key={data?._id} data={data} />
+            ))}
             {[...Array(5)].map((_, idx) => {
               return (
                 <>
@@ -150,9 +151,7 @@ const LandingMainPage = () => {
               );
             })}
 
-            {users?.map((data) => (
-              <WhoToFollow key={data?._id} data={data} />
-            ))}
+            
             {/* <WhoToFollow />
             <WhoToFollow />
             <WhoToFollow />

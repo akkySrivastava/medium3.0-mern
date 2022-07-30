@@ -5,7 +5,6 @@ import "./AuthModal.css";
 
 export const AuthModal = ({ open, setOpen, signInPopup }) => {
   //   const [open, setOpen] = useState(false);
-  const [signIn, setSignIn] = useState(false);
 
   //   const onOpenModal = () => setOpen(true);
   //   const onCloseModal = () => setOpen(false);

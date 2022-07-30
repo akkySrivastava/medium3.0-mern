@@ -3,9 +3,11 @@ import React from "react";
 import "./css/Stories.css";
 import reactHtmlParser from "react-html-parser";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const Stories = ({ data }) => {
   return (
+    <><Link to = {`/story/${data?._id}`}>
     <div className="stories">
       <div className="stories-top">
         <h4>{reactHtmlParser(data?.title)}</h4>
@@ -39,7 +41,9 @@ const Stories = ({ data }) => {
           </span>
         </div>
       </div>
-    </div>
+    </div></Link>
+    </>
+    
   );
 };
 

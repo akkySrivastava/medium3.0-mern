@@ -2,12 +2,12 @@ import React from "react";
 import LandHeader from "./LandHeader";
 import LandingMainPage from "./LandingMainPage";
 
-const Index = () => {
+const Index = ({userDetails}) => {
   return (
     <div>
       <LandHeader />
       <main>
-        <LandingMainPage />
+        <LandingMainPage userDetails = {userDetails} />
       </main>
     </div>
   );

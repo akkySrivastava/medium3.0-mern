@@ -4,9 +4,26 @@ import "./css/LandingRecommendedPost.css";
 import moment from "moment";
 import { truncate } from "../../helpers/truncate";
 import reactHtmlParser from "react-html-parser";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-const LandingRecommendedPost = ({ data }) => {
-  // console.log(data);
+const LandingRecommendedPost = ({ data, userDetails }) => {
+
+  const navigate = useNavigate()
+  const addToList = async(id) => {
+    const body = {
+      userid: userDetails?._id
+    }
+    console.log(body)
+    await axios.post(`http://localhost:80/api/user/list/${id}`, 
+                      body, 
+                      ).then((res) => {
+                        console.log('list added successfully')
+                        navigate('/me/lists')
+                    }).catch((err) => {
+                      console.log(err.response.data.message)
+                    })
+  }
   return (
     <div className="landing-recommended-post">
       <div className="landing-recommended-post-container">
@@ -16,7 +33,8 @@ const LandingRecommendedPost = ({ data }) => {
             <span>{data?.userDetails[0]?.displayName}</span>
           </div>
           <div className="landing-content">
-            {reactHtmlParser(data?.title)}
+            <Link to = {`/story/${data?._id}`}>{reactHtmlParser(data?.title)}</Link>
+            
             {/* {truncate(reactHtmlParser(data?.title), 20)} */}
           </div>
           <div className="landing-footer">
@@ -25,7 +43,7 @@ const LandingRecommendedPost = ({ data }) => {
             </span>
             <div className="icons">
               <Tooltip title="Save">
-                <span>
+                <span onClick={() => addToList(data?._id)}>
                   <svg
                     width="25"
                     height="25"
@@ -54,7 +72,8 @@ const LandingRecommendedPost = ({ data }) => {
         </div>
         <div className="landing-recommended-right">
           <img
-            src="https://miro.medium.com/fit/c/100/100/1*iWwPpJvR2Gzjh5gEVxwx9Q.jpeg"
+            width={50}
+            src="https://media-public.canva.com/FzeL8/MAEva8FzeL8/1/tl.png"
             alt="logo"
           />
         </div>

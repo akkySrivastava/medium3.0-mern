@@ -1,0 +1,128 @@
+.our-story-head{
+    display: flex;
+    width: 100%;
+}
+
+.our-story-content{
+    padding: 5em 0em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-bottom: 1px solid #000;
+}
+
+.our-story-content > p {
+    font-size: 6vw;
+    font-family: fangsong;
+    font-weight: 100;
+    margin: 0;
+    font-weight: 400;
+}
+
+.our-story-content > p > span{
+    font-weight: 700;
+}
+
+.our-story-content-main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    height: 100%;
+}
+
+.our-story-content-main-left{
+    display: flex;
+    width: 50%;
+    border-right: 1px solid #000;
+    height: 100%;
+}
+
+.our-story-main-content{
+        display: flex;
+        flex-direction: column;
+        margin: 30px;
+        align-items: center;
+}
+
+.our-story-main-content > p{
+    font-weight: 500;
+    font-size: 17px;
+    text-align: justify;
+    font-family: sans-serif;
+    width: 80%;
+}
+
+.anime{
+    width: 50%;
+    height: 450px;
+}
+
+.membership{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    height: 100%;
+}
+
+.memership-content-left{
+    display: flex;
+    width: 50%;
+    height: 420px;
+    border-right: 1px solid #000;
+
+}
+
+.memership-content-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.membership-content-right-content{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+
+.membership-content-right-content > h2{
+    font-size: 4vw !important;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+}
+
+.membership-content-right-content > button{
+    padding: 10px 50px;
+    background-color: #34a245;
+    max-width: fit-content;
+    color: #fff;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+.membership-content-right-content > button:hover{
+    background-color: #1b5a24;
+}
+
+@media screen and (max-width: 600px) {
+    .our-story-content-main{
+        flex-direction: column !important;
+    }    
+    .our-story-content-main-left{
+        width: 100%;
+        border-right: none;
+    }   
+}
+

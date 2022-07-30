@@ -1,5 +1,4 @@
 import React from "react";
-import ContentEditable from "react-contenteditable";
 import LandHeader from "../LandingPage/LandHeader";
 import "./css/index.css";
 // import Editor from "react-medium-editor";
@@ -11,12 +10,11 @@ import { selectUserId } from "../../features/userIdSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Index = () => {
+const Index = ({userDetails}) => {
   const [title, setTitle] = React.useState("");
 
   const [desc, setDesc] = React.useState("");
 
-  const { _id } = useSelector(selectUserId);
   const navigate = useNavigate();
 
   // console.log(title);
@@ -26,7 +24,7 @@ const Index = () => {
     const body = {
       title: title,
       content: desc,
-      userId: _id,
+      userId: userDetails?._id,
     };
 
     const confHeader = {
@@ -37,9 +35,7 @@ const Index = () => {
       .then((res) => {
         if (res.data.status) {
           console.log(res.data.message);
-          navigate("/", {
-            replace: true,
-          });
+          navigate(`/story/${res.data.data}`);
         }
       })
       .catch((err) => {

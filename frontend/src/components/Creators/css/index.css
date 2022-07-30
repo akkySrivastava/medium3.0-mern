@@ -1,0 +1,99 @@
+.creators{
+    display: flex;
+    width: 100%;
+    background-color: #f24d2e;
+    padding: 20px 50px;
+}
+
+.creators-main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 20px 50px;
+}
+
+.creators-main > small{
+    font-size: 80%;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    margin: 10px 0px;
+    color: #fff;
+}
+
+.creators-main > p > strong {
+    font-size: 6vw;
+    width: 80%;
+    margin: 0px;
+    font-family: fangsong;
+}
+
+.creators-main > p{
+    font-size: 20px;
+    margin: 20px 0px;
+    width: 80%;
+}
+
+.creators-main > button{
+    font-size: 1.5rem;
+    padding: 10px 100px;
+    max-width: fit-content;
+    background-color: white;
+    outline: none;
+    border: none;
+    border-radius: 33px;
+    letter-spacing: 1.1px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.creators-main > button:hover{
+    background-color: #eee;
+}
+
+.creator-learn > button:hover{
+    background-color: rgba(42, 42, 42, 0.911);
+}
+
+.creator-learn{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #000;
+    background-image: url(https://cdn-static-1.medium.com/sites/medium.com/creators/images/cubes.png);
+    background-position: 100% 50%;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    opacity: 1;
+    background-color: green;
+    padding: 50px 80px;
+    width: 100%;
+}
+
+.creator-learn > p{
+    width: 70%;
+}
+
+.creator-learn > p > strong{
+    font-size: 5vw;
+    font-family: fangsong;
+    color: #fff;
+    width: 70%;
+}
+
+.creator-learn > p {
+    width: 70%;
+    color: white;
+    font-size: 20px;
+}
+
+.creator-learn > button{
+    max-width: fit-content;
+    padding: 10px 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 25px;
+    background-color: #000;
+    color: white;
+    font-size: 1.2rem;
+}

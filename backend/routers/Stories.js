@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
       .then((doc) => {
         res.status(201).send({
           status: true,
+          data: doc._id,
           message: "Stories added successfully",
         });
       })
@@ -44,7 +45,7 @@ router.get("/", async (req, res) => {
             as: "userDetails", //output array field
           },
         },
-      ])
+      ]).sort({created_at: -1})
       .exec()
       .then((doc) => {
         res.status(200).send({
@@ -82,11 +83,10 @@ router.get("/:id", async (req, res) => {
           },
         },
       ])
-      .exec()
       .then((doc) => {
         res.status(200).send({
           status: true,
-          data: doc,
+          data: doc[0],
         });
       })
       .catch(() => {

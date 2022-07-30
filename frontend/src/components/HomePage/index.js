@@ -21,8 +21,7 @@ function Index() {
   }, [navigate, user]);
 
   const signInPopup = async () => {
-    const result = await signInWithPopup(auth, provider);
-    console.log(result.user.providerData[0]);
+    await signInWithPopup(auth, provider);
   };
   return (
     <div>

@@ -1,7 +1,26 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./css/RecommendedPost.css";
+import reactHtmlParser from 'react-html-parser'
+import moment from "moment";
+import { Link } from "react-router-dom";
 
 const RecommededPosts = () => {
+  const [stories, setStories] = useState();
+  useEffect(() => {
+    async function getStories() {
+      await axios
+        .get("http://localhost:80/api/stories")
+        .then((res) => {
+          // console.log(res.data.data);
+          setStories(res.data.data?.slice(0, 9));
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+        });
+    }
+    getStories();
+  }, []);
   return (
     <div className="post">
       <div className="post-container">
@@ -38,231 +57,39 @@ const RecommededPosts = () => {
         <div className="rcm-post-wrapper">
           <div className="rcm-post-container">
             <div className="rcm-posts">
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
+              {
+                stories?.map((data, index) => (
+                  <Link to = {`/story/${data?._id}`}>
+                    <React.Fragment key={index}>
+                        <div className="rcm-post">
+                      <div className="rcm-post-left">
+                        <span>{index + 1}</span>
+                      </div>
+                      <div className="rcm-post-right">
+                        <div className="rcm-post-content">
+                          <div className="top">
+                            <img
+                              src={data?.userDetails[0]?.photoURL}
+                              alt="logo"
+                            />
+                            <span>{data?.userDetails[0]?.displayName} Blog</span>
+                          </div>
+                          <div className="content">
+                            <p>
+                              {reactHtmlParser(data?.title)}
+                            </p>
+                          </div>
+                          <div className="footer">
+                            <span>{moment(data?.created_at).format('DD MM, YYYY')} · 2 min read </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="rcm-post">
-                <div className="rcm-post-left">
-                  <span>01</span>
-                </div>
-                <div className="rcm-post-right">
-                  <div className="rcm-post-content">
-                    <div className="top">
-                      <img
-                        src="https://miro.medium.com/fit/c/40/40/1*4c7_SNuureECLAy7nW8TKQ.png"
-                        alt="logo"
-                      />
-                      <span>Coinbase in The Coinbase Blog</span>
-                    </div>
-                    <div className="content">
-                      <p>
-                        Coinbase and Mastercard partner to revolutionize NFT
-                        purchase experience
-                      </p>
-                    </div>
-                    <div className="footer">
-                      <span>Jan 18 · 2 min read </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </React.Fragment>
+                  </Link>
+                
+              ))
+              }
             </div>
           </div>
         </div>
