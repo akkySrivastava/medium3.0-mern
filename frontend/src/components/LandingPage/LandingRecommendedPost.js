@@ -15,7 +15,7 @@ const LandingRecommendedPost = ({ data, userDetails }) => {
       userid: userDetails?._id
     }
     console.log(body)
-    await axios.post(`http://localhost:80/api/user/list/${id}`, 
+    await axios.post(`/api/user/list/${id}`, 
                       body, 
                       ).then((res) => {
                         console.log('list added successfully')

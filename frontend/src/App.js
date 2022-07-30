@@ -32,7 +32,7 @@ function App() {
         );
         async function getUser() {
               await axios
-                .get(`http://localhost:80/api/user/${authUser?.email}`)
+                .get(`/api/user/${authUser?.email}`)
                 .then(async (res) => {
                   console.log(res.data);
                   if (res.data.status) {
@@ -58,7 +58,7 @@ function App() {
                       photoURL: authUser?.photoURL,
                     };
                     await axios
-                      .post("http://localhost:80/api/user", body, confHeader)
+                      .post("/api/user", body, confHeader)
                       .then((res) => {
                         console.log(res.data);
                         setUserDetails(res.data?.data)

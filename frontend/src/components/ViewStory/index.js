@@ -24,7 +24,7 @@ const Index = ({userDetails}) => {
    useEffect(() => {
     if(id){
         setLoading(true)
-        axios.get(`http://localhost:80/api/stories/${id}`).then((res) => {
+        axios.get(`/api/stories/${id}`).then((res) => {
             console.log(res.data.data);
             setSingleB(res.data.data)
             setLoading(false)
@@ -40,7 +40,7 @@ const Index = ({userDetails}) => {
     const body = {
       userid: userDetails?._id
     }
-    await axios.post(`http://localhost:80/api/user/list/${id}`,  body).then((res) => {
+    await axios.post(`/api/user/list/${id}`,  body).then((res) => {
                         console.log('list added successfully')
                         navigate('/me/lists')
                     }).catch((err) => {

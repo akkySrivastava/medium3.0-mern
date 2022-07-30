@@ -11,7 +11,7 @@ const ListMain = ({userDetails}) => {
 
     async function getReadingList(){
       setLoading(true)
-      await axios.get(`http://localhost:80/api/user/get-list/${userDetails?._id}`).then((res) => {
+      await axios.get(`/api/user/get-list/${userDetails?._id}`).then((res) => {
         setLoading(false)
           console.log(res.data.data)
           let story = res.data?.data?.reverse()

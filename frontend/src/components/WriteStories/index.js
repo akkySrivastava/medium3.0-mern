@@ -31,7 +31,7 @@ const Index = ({userDetails}) => {
       "Content-Type": "application/json",
     };
     await axios
-      .post("http://localhost:80/api/stories", body, confHeader)
+      .post("/api/stories", body, confHeader)
       .then((res) => {
         if (res.data.status) {
           console.log(res.data.message);

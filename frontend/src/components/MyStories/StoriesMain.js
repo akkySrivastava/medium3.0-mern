@@ -13,7 +13,7 @@ const StoriesMain = ({userDetails}) => {
       async function getStories() {
         setLoading(true)
         await axios
-          .get(`http://localhost:80/api/stories/user/${userDetails?._id}`)
+          .get(`/api/stories/user/${userDetails?._id}`)
           .then((res) => {
             console.log(res.data);
             setStories(res.data.data.reverse());
